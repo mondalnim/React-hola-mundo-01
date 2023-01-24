@@ -1,42 +1,92 @@
 console.log("JS08");
+// Para crear una clases se usa la plabra reservada Class
+// El nombre de la clase debe ser con notación PascalCase (UpperCamelCase)
 class Usuario {
-    nombre;//este es un atributo, no un parámetro
+    nombre;
+    // email
     #carritoCompras;
-    constructor(nombre, email, direccion, telefono){//el constructor sirve para instanciar, aquí se usan parámetros. Esto no es necesario, solo en Java. Declararlos antes.
-        this.nombre = nombre; //hace referencia al objeto que lo este invocando, utiliza el atributo
-        this.email = email;//estos son atributos
-        this.direccion=direccion;
-        this.telefono=telefono;
-        this.fechaCreación=new Date();
-        this.#carritoCompras=[];
-
+    //Crear el constructor de la clase
+    constructor( nombre, email, direccion, telefono ){
+        this.nombre = nombre;
+        this.email = email;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.fechaCreacion = new Date();
+        this.#carritoCompras = [];
     }
-    imprimirDatos(){//funcion para imprimir datos
-        let listadoProductos = "";
+/* 
+    set carritoCompras( producto ){
+        this.#carritoCompras.push( producto);
+    } */
+
+    get carritoCompras(){
+        return this.#carritoCompras;
+    }
+
+    agregarProductoACarrito( producto){
+        this.#carritoCompras.push( producto);
+    }
+
+    imprimirDatos(){
+       let listadoProductos = "";
         if( this.#carritoCompras.length > 0){
-            for ( let producto of this.#carritoCompras){
+            for (let producto of this.#carritoCompras){
                 listadoProductos += `
                 UUID:\t${producto.uuid}
                 Producto:\t${producto.nombre} 
                 Precio:\t${producto.precio}
-
                 `;
-            }
+            } 
         }
 
-        const obtenerDatos=
-        `======DATOS DEL USUARIO======
-        nombre:${this.nombre}
-        email:${this.email}
+        const obtenerDatos = 
+        `=====DATOS DEL USUARIO=====
+        nombre: ${this.nombre}
+        email: ${this.email}
         direccion: ${this.direccion}
-        telefono: ${this.telefono}
-        fecha de creación: ${this.fechaCreación}
-        ${listadoProductos}`
-        ;
+        teléfono: ${this.telefono}
+        fecha de creación: ${this.fechaCreacion}
+        ${listadoProductos}
+        `;
         return obtenerDatos;
     }
 
 }
 //cuando se crea una clase no se usa const, let, ni var
 
-export{Usuario};
+const datoJson = {
+    "name":"morpheus",
+    "job":"leader",
+    "skills":[
+       "KunFu",
+       "Capitan"
+    ],
+    "tripulacion":{
+       "operador":"Tanque",
+       "elegido":"Neo"
+    },
+    "vivo":true,
+    "edad":45
+ };
+const productosTemporada =
+[
+    {
+      "nombre" : "Pantalón roto y pintado",
+      "precio" : 2500,
+      "imagen" : "http://mirepo.com/pantalon.jpg",
+      "descripcion": "Pantalón a la moda, roto por todos lados",
+      "tallas" : ["L","M","CH"]
+    },
+    {
+      "nombre" : "Sudadera",
+      "precio" : 300,
+      "imagen" : "http://mirepo.com/sudarea.jpg",
+      "descripcion": "Sudadera de NFL",
+      "tallas" : ["Unitalla"]
+    }
+   ]
+
+export{Usuario, datoJson, productosTemporada};
+
+
+export { Usuario };
